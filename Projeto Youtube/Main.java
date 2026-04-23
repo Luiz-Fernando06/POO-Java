@@ -1,6 +1,6 @@
 package projetoyoutube;
 
-public class ProjetoYoutube {
+public class Main {
     public static void main(String[] args) {
         Video video[] = new Video[3];
         Usuario[] usuario = new Usuario[2];
