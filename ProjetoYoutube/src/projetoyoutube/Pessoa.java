@@ -5,17 +5,11 @@ public abstract class Pessoa {
     protected String nome;
     protected int idade;
     protected char sexo;
-    protected int experiencia;
 
     public Pessoa(String nome, int idade, char sexo) {
         this.nome = nome;
         this.idade = idade;
         this.sexo = sexo;
-        this.experiencia = 0;
-    }
-
-    protected void ganharExp(){
-        this.experiencia++;
     }
 
     @Override
@@ -24,7 +18,6 @@ public abstract class Pessoa {
                 "\n nome = '" + nome + '\'' +
                 "\n idade = " + idade +
                 "\n sexo = " + sexo +
-                "\n experiencia = " + experiencia +
                 "\n}";
     }
 
@@ -52,11 +45,4 @@ public abstract class Pessoa {
         this.sexo = sexo;
     }
 
-    public int getExperiencia() {
-        return experiencia;
-    }
-
-    public void setExperiencia(int experiencia) {
-        this.experiencia = experiencia;
-    }
 }

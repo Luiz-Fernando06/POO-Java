@@ -1,4 +1,6 @@
 package projetoyoutube;
 
-public interface AçoesUsuarioAssistindoVideo {
+public interface AcoesUsuarioAssistindoVideo {
+    public void play();
+    public void pause();
 }

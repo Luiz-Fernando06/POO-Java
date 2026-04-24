@@ -1,23 +1,14 @@
 package projetoyoutube;
 
-public class Visualizacao {
+public class Visualizacao implements AcoesUsuarioAssistindoVideo{
     private Usuario espectador;
     private Video video;
 
-    public Visualizacao(Usuario espectador, Video filme) {
+    public Visualizacao(Usuario espectador, Video video) {
         this.espectador = espectador;
-        this.video = filme;
-
+        this.video = video;
         this.espectador.viuMaisUm();
         this.video.addView();
-    }
-
-    public void avaliar() {
-        this.video.avaliar(5);
-    }
-
-    public void avaliar(int nota) {
-        this.video.avaliar(nota);
     }
 
     public Usuario getEspectador() {
@@ -27,9 +18,20 @@ public class Visualizacao {
     @Override
     public String toString() {
         return "Visualizacao {" +
-                "\n espectador = " + espectador +
-                "\n video = " + video +
+                "\n espectador = " + espectador.getNome() +
+                "\n video = " + video.getTitulo() +
+                "\n reproduzindo = " + video.getReproduzindo() +
                 "\n }";
+    }
+
+    @Override
+    public void play() {
+        this.video.setReproduzindo(true);
+    }
+
+    @Override
+    public void pause() {
+        this.video.setReproduzindo(false);
     }
 
     public void setEspectador(Usuario espectador) {

@@ -3,57 +3,72 @@ package projetoyoutube;
 public class Video implements AcoesVideo {
 
     private String titulo;
-    private int avaliacao;
     private int views;
     private int curtidas;
     private boolean reproduzindo;
-    private int somaAvaliacoes;
-    private int totalAvaliacoes;
 
     public Video(String titulo) {
         this.titulo = titulo;
-        this.avaliacao = 0;
         this.views = 0;
         this.curtidas = 0;
         this.reproduzindo = false;
-        this.somaAvaliacoes = 0;
-        this.totalAvaliacoes = 0;
     }
 
     public void addView() {
         this.views++;
     }
 
-    public void avaliar(int nota) {
-        if (nota < 0 || nota > 10) return;
+    private Comentario[] comentarios = new Comentario[100];
+    private int totComentarios = 0;
 
-        this.somaAvaliacoes += nota;
-        this.totalAvaliacoes++;
-        this.avaliacao = somaAvaliacoes / totalAvaliacoes;
+    public void mostrarComentarios() {
+        for (int i=0; i < totComentarios; i++) {
+            System.out.println(comentarios[i]);
+        }
     }
 
     @Override
-    public void play() {
-        this.reproduzindo = true;
+    public void curtirComentario(int index, Usuario usuario) {
+        if (index >= 0 && index < totComentarios) {
+            comentarios[index].like(usuario);
+        } else {
+            System.out.println("Comentario não existe");
+        }
     }
 
     @Override
-    public void pause() {
-        this.reproduzindo = false;
+    public void adicionarComentario(Usuario usuario, String texto) {
+        if (totComentarios < comentarios.length) {
+            Comentario c = new Comentario(usuario, this,texto);
+            comentarios[totComentarios] = c;
+            totComentarios++;
+        } else {
+            System.out.println("Limite de Comentario atingido");
+        }
     }
+    private Usuario[] usuariosQueCurtiram = new Usuario[100];
+    private int totCurtidas = 0;
 
     @Override
-    public void like() {
-        this.curtidas++;
+    public void like(Usuario usuario) {
+        for (int i = 0; i < totCurtidas; i++) {
+            if (usuariosQueCurtiram[i] == usuario) {
+                this.totCurtidas--;
+                return;
+            }
+        }
+
+        usuariosQueCurtiram[totCurtidas] = usuario;
+        this.totCurtidas++;
+
     }
 
     @Override
     public String toString() {
         return "Video {" +
                 "\n titulo = '" + getTitulo() + '\'' +
-                "\n avaliacao = " + getAvaliacao() +
                 "\n views = " + getViews() +
-                "\n curtidas = " + getCurtidas() +
+                "\n curtidas = " + totCurtidas +
                 "\n reproduzindo = " + getReproduzindo() +
                 "\n}";
     }
@@ -64,14 +79,6 @@ public class Video implements AcoesVideo {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    public int getAvaliacao() {
-        return avaliacao;
-    }
-
-    public void setAvaliacao(int avaliacao) {
-        this.avaliacao = avaliacao;
     }
 
     public int getViews() {
@@ -96,21 +103,5 @@ public class Video implements AcoesVideo {
 
     public void setReproduzindo(boolean reproduzindo) {
         this.reproduzindo = reproduzindo;
-    }
-
-    public int getSomaAvaliacoes() {
-        return somaAvaliacoes;
-    }
-
-    public void setSomaAvaliacoes(int somaAvaliacoes) {
-        this.somaAvaliacoes = somaAvaliacoes;
-    }
-
-    public int getTotalAvaliacoes() {
-        return totalAvaliacoes;
-    }
-
-    public void setTotalAvaliacoes(int totalAvaliacoes) {
-        this.totalAvaliacoes = totalAvaliacoes;
     }
 }

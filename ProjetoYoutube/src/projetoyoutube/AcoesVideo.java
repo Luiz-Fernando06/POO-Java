@@ -1,7 +1,7 @@
 package projetoyoutube;
 
 public interface AcoesVideo {
-    public void play();
-    public void pause();
-    public void like();
+    public void like(Usuario usuario);
+    public void adicionarComentario(Usuario usuario, String texto);
+    public void curtirComentario(int index, Usuario usuario);
 }
